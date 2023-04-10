@@ -13,5 +13,7 @@ namespace TRM_Api_Viewer
         public string Worker_IP { get; set; }
         public int Worker_Port { get; set; }
         public int Algo2_Port { get; set; }
+        public string Miner { get; set; }
+        
     }
 }

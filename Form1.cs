@@ -50,12 +50,21 @@ namespace TRM_Api_Viewer
             }
             if (!int.TryParse(Algo2_Port_TextBox.Text, out var port2))
             {
-                MessageBox.Show("Algo2 Port must be an integer");
-                return;
+                if (!String.IsNullOrEmpty(Algo2_Port_TextBox.Text))
+                {
+                    MessageBox.Show("Algo2 Port must be an integer");
+                    return;
+                }
             }
 
             // Create a new form to display the mining stats
-            Form form = new Gpus_Form(ip, port, port2);
+            var worker = new Worker();
+            worker.Worker_IP = ip.ToString();
+            worker.Worker_Port = port;
+            worker.Algo2_Port = port2;
+            worker.Miner = Miner_ComboBox.Text;
+
+            Form form = new Gpus_Form(worker);
             form.Show();
         }
         private void Save_Button_Click(object sender, EventArgs e)
@@ -107,6 +116,15 @@ namespace TRM_Api_Viewer
                 MessageBox.Show("Algo2 Port must be an integer");
                 return null;
             }
+            if (!String.IsNullOrEmpty(Miner_ComboBox.Text))
+            {
+                worker.Miner = Miner_ComboBox.Text;
+            }
+            else
+            {
+                MessageBox.Show("Algo2 Port must be an integer");
+                return null;
+            }
             return worker;
         }
 
@@ -121,6 +139,7 @@ namespace TRM_Api_Viewer
             Worker_Ip_TextBox.Text = worker.Worker_IP;
             Worker_Port_TextBox.Text = worker.Worker_Port.ToString();
             Algo2_Port_TextBox.Text = worker.Algo2_Port.ToString();
+            Miner_ComboBox.Text = worker.Miner;
         }
         private void Workers_ListBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -144,9 +163,14 @@ namespace TRM_Api_Viewer
         {
             foreach(var worker in workerList)
             {
-                Form form = new Gpus_Form(IPAddress.Parse(worker.Worker_IP), worker.Worker_Port, worker.Algo2_Port);
+                Form form = new Gpus_Form(worker);
                 form.Show();
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Start_Button = new System.Windows.Forms.Button();
             this.Worker_Ip_TextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,11 +41,13 @@
             this.Workers_ListBox = new System.Windows.Forms.ListBox();
             this.Save_Button = new System.Windows.Forms.Button();
             this.Start_All_Button = new System.Windows.Forms.Button();
+            this.Miner_ComboBox = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Start_Button
             // 
-            this.Start_Button.Location = new System.Drawing.Point(19, 129);
+            this.Start_Button.Location = new System.Drawing.Point(19, 156);
             this.Start_Button.Name = "Start_Button";
             this.Start_Button.Size = new System.Drawing.Size(72, 27);
             this.Start_Button.TabIndex = 0;
@@ -133,7 +136,7 @@
             // 
             // Save_Button
             // 
-            this.Save_Button.Location = new System.Drawing.Point(113, 129);
+            this.Save_Button.Location = new System.Drawing.Point(113, 156);
             this.Save_Button.Name = "Save_Button";
             this.Save_Button.Size = new System.Drawing.Size(49, 27);
             this.Save_Button.TabIndex = 12;
@@ -143,7 +146,7 @@
             // 
             // Start_All_Button
             // 
-            this.Start_All_Button.Location = new System.Drawing.Point(243, 132);
+            this.Start_All_Button.Location = new System.Drawing.Point(241, 156);
             this.Start_All_Button.Name = "Start_All_Button";
             this.Start_All_Button.Size = new System.Drawing.Size(72, 27);
             this.Start_All_Button.TabIndex = 13;
@@ -151,11 +154,33 @@
             this.Start_All_Button.UseVisualStyleBackColor = true;
             this.Start_All_Button.Click += new System.EventHandler(this.Start_All_Button_Click);
             // 
+            // Miner_ComboBox
+            // 
+            this.Miner_ComboBox.FormattingEnabled = true;
+            this.Miner_ComboBox.Items.AddRange(new object[] {
+            "trm",
+            "gminer"});
+            this.Miner_ComboBox.Location = new System.Drawing.Point(79, 126);
+            this.Miner_ComboBox.Name = "Miner_ComboBox";
+            this.Miner_ComboBox.Size = new System.Drawing.Size(83, 21);
+            this.Miner_ComboBox.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 129);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Miner:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 171);
+            this.ClientSize = new System.Drawing.Size(349, 196);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.Miner_ComboBox);
             this.Controls.Add(this.Start_All_Button);
             this.Controls.Add(this.Save_Button);
             this.Controls.Add(this.Workers_ListBox);
@@ -168,8 +193,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Worker_Ip_TextBox);
             this.Controls.Add(this.Start_Button);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "TRM Api Viewer";
+            this.Text = "Mining Stats Monitor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,6 +217,8 @@
         private System.Windows.Forms.ListBox Workers_ListBox;
         private System.Windows.Forms.Button Save_Button;
         private System.Windows.Forms.Button Start_All_Button;
+        private System.Windows.Forms.ComboBox Miner_ComboBox;
+        private System.Windows.Forms.Label label5;
     }
 }
 

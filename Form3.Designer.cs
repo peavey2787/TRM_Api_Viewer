@@ -30,6 +30,7 @@ namespace TRM_Api_Viewer
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gpus_Form));
             this.label1 = new System.Windows.Forms.Label();
             this.Count_Down_Label = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -78,7 +79,7 @@ namespace TRM_Api_Viewer
             this.panel1.Controls.Add(this.Restart_Miner_Button);
             this.panel1.Controls.Add(this.Count_Down_Label);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(16, 609);
+            this.panel1.Location = new System.Drawing.Point(16, 430);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1091, 28);
             this.panel1.TabIndex = 2;
@@ -206,7 +207,7 @@ namespace TRM_Api_Viewer
             this.Totals_Panel.Controls.Add(this.label4);
             this.Totals_Panel.Controls.Add(this.Total_Mhs);
             this.Totals_Panel.Controls.Add(this.label5);
-            this.Totals_Panel.Location = new System.Drawing.Point(16, 12);
+            this.Totals_Panel.Location = new System.Drawing.Point(16, 3);
             this.Totals_Panel.Name = "Totals_Panel";
             this.Totals_Panel.Size = new System.Drawing.Size(1091, 42);
             this.Totals_Panel.TabIndex = 13;
@@ -226,21 +227,22 @@ namespace TRM_Api_Viewer
             this.Stats_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Stats_Panel.Location = new System.Drawing.Point(16, 60);
+            this.Stats_Panel.Location = new System.Drawing.Point(16, 44);
             this.Stats_Panel.Name = "Stats_Panel";
-            this.Stats_Panel.Size = new System.Drawing.Size(1091, 543);
+            this.Stats_Panel.Size = new System.Drawing.Size(1091, 380);
             this.Stats_Panel.TabIndex = 14;
             // 
             // Gpus_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1119, 637);
-            this.Controls.Add(this.Totals_Panel);
+            this.ClientSize = new System.Drawing.Size(1119, 458);
             this.Controls.Add(this.Stats_Panel);
+            this.Controls.Add(this.Totals_Panel);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Gpus_Form";
             this.Text = "Form3";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gpus_Form_FormClosing);
