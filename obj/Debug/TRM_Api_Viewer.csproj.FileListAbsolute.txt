@@ -1,0 +1,16 @@
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.csproj.AssemblyReference.cache
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.csproj.SuggestedBindingRedirects.cache
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.Form1.resources
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.Gpus_Form.resources
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.Properties.Resources.resources
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.csproj.GenerateResource.cache
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.csproj.CoreCompileInputs.cache
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\TRM_Api_Viewer.exe.config
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\TRM_Api_Viewer.exe
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\TRM_Api_Viewer.pdb
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.csproj.CopyComplete
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.exe
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.pdb
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.Gpu_Stats.resources
