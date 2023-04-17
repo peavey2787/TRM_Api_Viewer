@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace TRM_Api_Viewer
 {
-    public partial class Gpu_Stats : UserControl
+    public partial class Gpu_Stats_Form : UserControl
     {
         public Panel GpuPanel { get; set; } 
-        public Gpu_Stats()
+        public Gpu_Stats_Form()
         {
             InitializeComponent();
             GpuPanel = Gpu_Panel;

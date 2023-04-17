@@ -1,6 +1,6 @@
 ﻿namespace TRM_Api_Viewer
 {
-    partial class Gpu_Stats
+    partial class Gpu_Stats_Form
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gpu_Stats));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gpu_Stats_Form));
             this.Gpu_Panel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -66,10 +66,10 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Fan_Percent_Picture = new System.Windows.Forms.PictureBox();
             this.Fan_Percent = new System.Windows.Forms.Label();
-            this.Enabled = new System.Windows.Forms.Label();
             this.Online_Picture_Box = new System.Windows.Forms.PictureBox();
             this.GPU = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.MHS_av3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.Gpu_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Hardware_Errors_Picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Gpu_Chart)).BeginInit();
@@ -85,10 +85,12 @@
             // Gpu_Panel
             // 
             this.Gpu_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Gpu_Panel.Controls.Add(this.label3);
-            this.Gpu_Panel.Controls.Add(this.label6);
             this.Gpu_Panel.Controls.Add(this.Last_Share_Time);
             this.Gpu_Panel.Controls.Add(this.Last_Share_Label);
+            this.Gpu_Panel.Controls.Add(this.MHS_av3);
+            this.Gpu_Panel.Controls.Add(this.label4);
+            this.Gpu_Panel.Controls.Add(this.label3);
+            this.Gpu_Panel.Controls.Add(this.label6);
             this.Gpu_Panel.Controls.Add(this.Hardware_Errors_Picture);
             this.Gpu_Panel.Controls.Add(this.TemperatureMem);
             this.Gpu_Panel.Controls.Add(this.MHS_av2);
@@ -116,10 +118,8 @@
             this.Gpu_Panel.Controls.Add(this.pictureBox2);
             this.Gpu_Panel.Controls.Add(this.Fan_Percent_Picture);
             this.Gpu_Panel.Controls.Add(this.Fan_Percent);
-            this.Gpu_Panel.Controls.Add(this.Enabled);
             this.Gpu_Panel.Controls.Add(this.Online_Picture_Box);
             this.Gpu_Panel.Controls.Add(this.GPU);
-            this.Gpu_Panel.Controls.Add(this.label2);
             this.Gpu_Panel.Location = new System.Drawing.Point(3, 3);
             this.Gpu_Panel.Name = "Gpu_Panel";
             this.Gpu_Panel.Size = new System.Drawing.Size(298, 379);
@@ -130,7 +130,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(266, 63);
+            this.label3.Location = new System.Drawing.Point(266, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(22, 18);
             this.label3.TabIndex = 18;
@@ -141,7 +141,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(187, 63);
+            this.label6.Location = new System.Drawing.Point(187, 93);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(22, 18);
             this.label6.TabIndex = 20;
@@ -151,7 +151,7 @@
             // 
             this.Last_Share_Time.AutoSize = true;
             this.Last_Share_Time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Last_Share_Time.Location = new System.Drawing.Point(141, 200);
+            this.Last_Share_Time.Location = new System.Drawing.Point(141, 202);
             this.Last_Share_Time.Name = "Last_Share_Time";
             this.Last_Share_Time.Size = new System.Drawing.Size(104, 18);
             this.Last_Share_Time.TabIndex = 16;
@@ -161,7 +161,7 @@
             // 
             this.Last_Share_Label.AutoSize = true;
             this.Last_Share_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Last_Share_Label.Location = new System.Drawing.Point(55, 200);
+            this.Last_Share_Label.Location = new System.Drawing.Point(55, 202);
             this.Last_Share_Label.Name = "Last_Share_Label";
             this.Last_Share_Label.Size = new System.Drawing.Size(83, 18);
             this.Last_Share_Label.TabIndex = 15;
@@ -170,7 +170,7 @@
             // Hardware_Errors_Picture
             // 
             this.Hardware_Errors_Picture.Image = global::TRM_Api_Viewer.Properties.Resources._00001_2291499681;
-            this.Hardware_Errors_Picture.Location = new System.Drawing.Point(94, -1);
+            this.Hardware_Errors_Picture.Location = new System.Drawing.Point(183, 59);
             this.Hardware_Errors_Picture.Name = "Hardware_Errors_Picture";
             this.Hardware_Errors_Picture.Size = new System.Drawing.Size(26, 28);
             this.Hardware_Errors_Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -181,7 +181,7 @@
             // 
             this.TemperatureMem.AutoSize = true;
             this.TemperatureMem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TemperatureMem.Location = new System.Drawing.Point(155, 63);
+            this.TemperatureMem.Location = new System.Drawing.Point(155, 93);
             this.TemperatureMem.Name = "TemperatureMem";
             this.TemperatureMem.Size = new System.Drawing.Size(35, 18);
             this.TemperatureMem.TabIndex = 14;
@@ -191,7 +191,7 @@
             // 
             this.MHS_av2.AutoSize = true;
             this.MHS_av2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MHS_av2.Location = new System.Drawing.Point(6, 81);
+            this.MHS_av2.Location = new System.Drawing.Point(6, 58);
             this.MHS_av2.Name = "MHS_av2";
             this.MHS_av2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.MHS_av2.Size = new System.Drawing.Size(85, 18);
@@ -203,7 +203,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Green;
-            this.label11.Location = new System.Drawing.Point(91, 81);
+            this.label11.Location = new System.Drawing.Point(91, 58);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(48, 18);
             this.label11.TabIndex = 35;
@@ -212,41 +212,43 @@
             // Gpu_Chart
             // 
             this.Gpu_Chart.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.Gpu_Chart.ChartAreas.Add(chartArea2);
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.Gpu_Chart.Legends.Add(legend2);
-            this.Gpu_Chart.Location = new System.Drawing.Point(-13, 214);
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BackSecondaryColor = System.Drawing.Color.White;
+            chartArea1.Name = "ChartArea1";
+            this.Gpu_Chart.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.Gpu_Chart.Legends.Add(legend1);
+            this.Gpu_Chart.Location = new System.Drawing.Point(-13, 211);
             this.Gpu_Chart.MaximumSize = new System.Drawing.Size(314, 167);
             this.Gpu_Chart.MinimumSize = new System.Drawing.Size(314, 167);
             this.Gpu_Chart.Name = "Gpu_Chart";
-            series4.BorderWidth = 5;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Color = System.Drawing.Color.Blue;
-            series4.Legend = "Legend1";
-            series4.LegendText = "MH/s";
-            series4.Name = "Series1";
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            series5.Legend = "Legend1";
-            series5.Name = "Series2";
-            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series6.Color = System.Drawing.Color.Red;
-            series6.Legend = "Legend1";
-            series6.Name = "Series3";
-            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.Gpu_Chart.Series.Add(series4);
-            this.Gpu_Chart.Series.Add(series5);
-            this.Gpu_Chart.Series.Add(series6);
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Blue;
+            series1.Legend = "Legend1";
+            series1.LegendText = "MH/s";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.Red;
+            series3.Legend = "Legend1";
+            series3.Name = "Series3";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.Gpu_Chart.Series.Add(series1);
+            this.Gpu_Chart.Series.Add(series2);
+            this.Gpu_Chart.Series.Add(series3);
             this.Gpu_Chart.Size = new System.Drawing.Size(314, 167);
             this.Gpu_Chart.TabIndex = 34;
             this.Gpu_Chart.Text = "chart1";
@@ -255,7 +257,7 @@
             // 
             this.Intensity.AutoSize = true;
             this.Intensity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Intensity.Location = new System.Drawing.Point(34, 127);
+            this.Intensity.Location = new System.Drawing.Point(34, 133);
             this.Intensity.Name = "Intensity";
             this.Intensity.Size = new System.Drawing.Size(16, 18);
             this.Intensity.TabIndex = 33;
@@ -265,7 +267,7 @@
             // 
             this.Intensity_Label.AutoSize = true;
             this.Intensity_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Intensity_Label.Location = new System.Drawing.Point(15, 105);
+            this.Intensity_Label.Location = new System.Drawing.Point(15, 111);
             this.Intensity_Label.Name = "Intensity_Label";
             this.Intensity_Label.Size = new System.Drawing.Size(61, 18);
             this.Intensity_Label.TabIndex = 32;
@@ -275,7 +277,7 @@
             // 
             this.Volts_Label.AutoSize = true;
             this.Volts_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Volts_Label.Location = new System.Drawing.Point(261, 147);
+            this.Volts_Label.Location = new System.Drawing.Point(261, 177);
             this.Volts_Label.Name = "Volts_Label";
             this.Volts_Label.Size = new System.Drawing.Size(28, 18);
             this.Volts_Label.TabIndex = 31;
@@ -285,7 +287,7 @@
             // 
             this.GPU_Volts.AutoSize = true;
             this.GPU_Volts.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GPU_Volts.Location = new System.Drawing.Point(221, 147);
+            this.GPU_Volts.Location = new System.Drawing.Point(221, 177);
             this.GPU_Volts.Name = "GPU_Volts";
             this.GPU_Volts.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.GPU_Volts.Size = new System.Drawing.Size(44, 18);
@@ -296,7 +298,7 @@
             // 
             this.Rejected.AutoSize = true;
             this.Rejected.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Rejected.Location = new System.Drawing.Point(39, 163);
+            this.Rejected.Location = new System.Drawing.Point(39, 174);
             this.Rejected.Name = "Rejected";
             this.Rejected.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Rejected.Size = new System.Drawing.Size(48, 18);
@@ -306,7 +308,7 @@
             // pictureBox5
             // 
             this.pictureBox5.Image = global::TRM_Api_Viewer.Properties.Resources.red_x;
-            this.pictureBox5.Location = new System.Drawing.Point(3, 151);
+            this.pictureBox5.Location = new System.Drawing.Point(3, 162);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(30, 40);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -316,7 +318,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::TRM_Api_Viewer.Properties.Resources.checkmark;
-            this.pictureBox1.Location = new System.Drawing.Point(102, 151);
+            this.pictureBox1.Location = new System.Drawing.Point(102, 162);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(30, 40);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -327,7 +329,7 @@
             // 
             this.Accepted.AutoSize = true;
             this.Accepted.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Accepted.Location = new System.Drawing.Point(138, 163);
+            this.Accepted.Location = new System.Drawing.Point(138, 174);
             this.Accepted.Name = "Accepted";
             this.Accepted.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Accepted.Size = new System.Drawing.Size(72, 18);
@@ -338,7 +340,7 @@
             // 
             this.MHS_av.AutoSize = true;
             this.MHS_av.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MHS_av.Location = new System.Drawing.Point(6, 48);
+            this.MHS_av.Location = new System.Drawing.Point(6, 34);
             this.MHS_av.Name = "MHS_av";
             this.MHS_av.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.MHS_av.Size = new System.Drawing.Size(85, 18);
@@ -350,7 +352,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Blue;
-            this.label9.Location = new System.Drawing.Point(91, 48);
+            this.label9.Location = new System.Drawing.Point(91, 34);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(48, 18);
             this.label9.TabIndex = 22;
@@ -360,7 +362,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(178, 121);
+            this.label7.Location = new System.Drawing.Point(178, 151);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(37, 18);
             this.label7.TabIndex = 21;
@@ -370,7 +372,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(261, 120);
+            this.label5.Location = new System.Drawing.Point(261, 150);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 18);
             this.label5.TabIndex = 19;
@@ -380,7 +382,7 @@
             // 
             this.Hardware_Errors.AutoSize = true;
             this.Hardware_Errors.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Hardware_Errors.Location = new System.Drawing.Point(120, 4);
+            this.Hardware_Errors.Location = new System.Drawing.Point(180, 38);
             this.Hardware_Errors.Name = "Hardware_Errors";
             this.Hardware_Errors.Size = new System.Drawing.Size(32, 18);
             this.Hardware_Errors.TabIndex = 17;
@@ -390,7 +392,7 @@
             // 
             this.Temperature.AutoSize = true;
             this.Temperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Temperature.Location = new System.Drawing.Point(235, 63);
+            this.Temperature.Location = new System.Drawing.Point(235, 93);
             this.Temperature.Name = "Temperature";
             this.Temperature.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Temperature.Size = new System.Drawing.Size(35, 18);
@@ -401,7 +403,7 @@
             // 
             this.Memory_Clock.AutoSize = true;
             this.Memory_Clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Memory_Clock.Location = new System.Drawing.Point(144, 121);
+            this.Memory_Clock.Location = new System.Drawing.Point(144, 151);
             this.Memory_Clock.Name = "Memory_Clock";
             this.Memory_Clock.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Memory_Clock.Size = new System.Drawing.Size(32, 18);
@@ -411,7 +413,7 @@
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(144, 79);
+            this.pictureBox4.Location = new System.Drawing.Point(144, 109);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(74, 39);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -422,7 +424,7 @@
             // 
             this.GPU_Power.AutoSize = true;
             this.GPU_Power.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GPU_Power.Location = new System.Drawing.Point(158, 34);
+            this.GPU_Power.Location = new System.Drawing.Point(221, 39);
             this.GPU_Power.Name = "GPU_Power";
             this.GPU_Power.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.GPU_Power.Size = new System.Drawing.Size(32, 18);
@@ -432,7 +434,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::TRM_Api_Viewer.Properties.Resources._00059_428177859;
-            this.pictureBox3.Location = new System.Drawing.Point(160, 2);
+            this.pictureBox3.Location = new System.Drawing.Point(221, 58);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(30, 29);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -443,7 +445,7 @@
             // 
             this.GPU_Clock.AutoSize = true;
             this.GPU_Clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GPU_Clock.Location = new System.Drawing.Point(221, 120);
+            this.GPU_Clock.Location = new System.Drawing.Point(221, 150);
             this.GPU_Clock.Name = "GPU_Clock";
             this.GPU_Clock.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.GPU_Clock.Size = new System.Drawing.Size(40, 18);
@@ -453,7 +455,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::TRM_Api_Viewer.Properties.Resources._00022_35639226;
-            this.pictureBox2.Location = new System.Drawing.Point(242, 84);
+            this.pictureBox2.Location = new System.Drawing.Point(242, 114);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(34, 29);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -463,7 +465,7 @@
             // Fan_Percent_Picture
             // 
             this.Fan_Percent_Picture.Image = global::TRM_Api_Viewer.Properties.Resources._00015_153080988;
-            this.Fan_Percent_Picture.Location = new System.Drawing.Point(209, 2);
+            this.Fan_Percent_Picture.Location = new System.Drawing.Point(262, 58);
             this.Fan_Percent_Picture.Name = "Fan_Percent_Picture";
             this.Fan_Percent_Picture.Size = new System.Drawing.Size(28, 29);
             this.Fan_Percent_Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -474,21 +476,11 @@
             // 
             this.Fan_Percent.AutoSize = true;
             this.Fan_Percent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Fan_Percent.Location = new System.Drawing.Point(206, 34);
+            this.Fan_Percent.Location = new System.Drawing.Point(261, 39);
             this.Fan_Percent.Name = "Fan_Percent";
             this.Fan_Percent.Size = new System.Drawing.Size(32, 18);
             this.Fan_Percent.TabIndex = 4;
             this.Fan_Percent.Text = "100";
-            // 
-            // Enabled
-            // 
-            this.Enabled.AutoSize = true;
-            this.Enabled.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Enabled.Location = new System.Drawing.Point(6, 21);
-            this.Enabled.Name = "Enabled";
-            this.Enabled.Size = new System.Drawing.Size(65, 18);
-            this.Enabled.TabIndex = 3;
-            this.Enabled.Text = "Disabled";
             // 
             // Online_Picture_Box
             // 
@@ -505,21 +497,33 @@
             // 
             this.GPU.AutoSize = true;
             this.GPU.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GPU.Location = new System.Drawing.Point(57, 3);
+            this.GPU.Location = new System.Drawing.Point(0, 3);
             this.GPU.Name = "GPU";
-            this.GPU.Size = new System.Drawing.Size(16, 18);
+            this.GPU.Size = new System.Drawing.Size(218, 18);
             this.GPU.TabIndex = 1;
-            this.GPU.Text = "0";
+            this.GPU.Text = "WorkerName+GpuName+Index";
             // 
-            // label2
+            // MHS_av3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Gpu #";
+            this.MHS_av3.AutoSize = true;
+            this.MHS_av3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MHS_av3.Location = new System.Drawing.Point(6, 83);
+            this.MHS_av3.Name = "MHS_av3";
+            this.MHS_av3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.MHS_av3.Size = new System.Drawing.Size(85, 18);
+            this.MHS_av3.TabIndex = 38;
+            this.MHS_av3.Text = "999999.99";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label4.Location = new System.Drawing.Point(91, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 18);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "MH/s";
             // 
             // Gpu_Stats
             // 
@@ -573,11 +577,11 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox Fan_Percent_Picture;
         private System.Windows.Forms.Label Fan_Percent;
-        private System.Windows.Forms.Label Enabled;
         private System.Windows.Forms.PictureBox Online_Picture_Box;
         private System.Windows.Forms.Label GPU;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label MHS_av2;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label MHS_av3;
+        private System.Windows.Forms.Label label4;
     }
 }

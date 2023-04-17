@@ -13,8 +13,11 @@ C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\Newtonsoft.Jso
 C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.csproj.CopyComplete
 C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.exe
 C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.pdb
-C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.Gpu_Stats.resources
 C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\WebDriver.dll
 C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\selenium-manager\linux\selenium-manager
 C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\selenium-manager\macos\selenium-manager
 C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\bin\Debug\selenium-manager\windows\selenium-manager.exe
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.View_Miner.resources
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.WorkerSummary.resources
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.EditSettings.resources
+C:\Users\dad\source\repos\TRM_Api_Viewer\TRM_Api_Viewer\obj\Debug\TRM_Api_Viewer.Gpu_Stats_Form.resources
