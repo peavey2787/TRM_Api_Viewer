@@ -19,39 +19,74 @@ namespace TRM_Api_Viewer
         public string PoolHashrate { get; set; }
         public string PoolHashrate2 { get; set; }
         public List<Gpu> Gpus { get; set; }
+        public double Hashrate1
+        {
+            get
+            {
+                double total = 0;
+                foreach (Gpu gpu in Gpus)
+                    total += gpu.Speed1;
+                return total;
+            }
+        }
+        public double Hashrate2
+        {
+            get
+            {
+                double total = 0;
+                foreach (Gpu gpu in Gpus)
+                    total += gpu.Speed2;
+                return total;
+            }
+        }
+        public double Hashrate3
+        {
+            get
+            {
+                double total = 0;
+                foreach (Gpu gpu in Gpus)
+                    total += gpu.Speed3;
+                return total;
+            }
+        }
 
         public MinerStats()
         {
             Gpus = new List<Gpu>();
-        }
+        }        
     }
 
     public class Gpu
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string WorkerName { get; set; }
+        public string Worker_Name { get; set; }
         public bool Online { get; set; }
         public double Speed1 { get; set; }
+        public string Speed1_Unit { get; set; }
         public double Speed2 { get; set; }
+        public string Speed2_Unit { get; set; }
         public double Speed3 { get; set; }
+        public string Speed3_Unit { get; set; }
         public int Temperature { get; set; }
-        public int MemTemp { get; set; }
-        public int FanPercent { get; set; }
+        public int Mem_Temp { get; set; }
+        public int Fan_Percent { get; set; }
         public double Power { get; set; }
-        public int CoreClock { get; set; }
-        public int MemClock { get; set; }
-        public double CoreMv { get; set; }
-        public int Intensity { get; set; }
-        public string Efficiency { get; set; }
+        public int Core_Clock { get; set; }
+        public int Mem_Clock { get; set; }
+        public double Core_Mv { get; set; }
+        public double Intensity { get; set; }
+        public double Dual_Intensity { get; set; }
+        public double Efficiency { get; set; }
+        public string Efficiency_Unit { get; set; }
         public int Accepted1 { get; set; }
         public int Accepted2 { get; set; }
         public int Accepted3 { get; set; }
         public int Rejected1 { get; set; }
         public int Rejected2 { get; set; }
         public int Rejected3 { get; set; }
-        public double LastShareTime { get; set; }
-        public int HardwareErrors { get; set; }
+        public double Last_Share_Time { get; set; }
+        public int Hardware_Errors { get; set; }
 
         public static string GetMiningSpeedUnit(double miningSpeed)
         {

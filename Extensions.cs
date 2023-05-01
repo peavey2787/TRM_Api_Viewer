@@ -38,6 +38,24 @@ namespace TRM_Api_Viewer
                 listBox.Items.Add(item);
             }
         }
+        public static void AppendTexts(this TextBox textBox, string text)
+        {
+            try
+            {
+                if (textBox.InvokeRequired)
+                {
+                    textBox.Invoke(new Action(() =>
+                    {
+                        textBox.AppendText(text);
+                    }));
+                }
+                else
+                {
+                    textBox.AppendText(text);
+                }
+            }
+            catch { }
+        }
         public static void SetProperty(this Control control, string propertyName, object value)
         {
             if (control.InvokeRequired)

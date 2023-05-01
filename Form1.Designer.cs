@@ -44,12 +44,12 @@
             this.Add_Settings_Button = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Auto_Start_CheckBox = new System.Windows.Forms.CheckBox();
             this.Delete_Button = new System.Windows.Forms.Button();
             this.Network_Scan_Count_Label = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.Scan_for_Workers_Button = new System.Windows.Forms.Button();
             this.Workers_Panel = new System.Windows.Forms.Panel();
-            this.Auto_Start_CheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -137,6 +137,7 @@
             this.Miner_Settings_ListBox.Size = new System.Drawing.Size(161, 69);
             this.Miner_Settings_ListBox.TabIndex = 2;
             this.Miner_Settings_ListBox.SelectedIndexChanged += new System.EventHandler(this.Miner_Settings_ListBox_SelectedIndexChanged);
+            this.Miner_Settings_ListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Miner_Settings_ListBox_KeyDown);
             // 
             // label2
             // 
@@ -213,6 +214,17 @@
             this.panel2.Size = new System.Drawing.Size(633, 294);
             this.panel2.TabIndex = 23;
             // 
+            // Auto_Start_CheckBox
+            // 
+            this.Auto_Start_CheckBox.AutoSize = true;
+            this.Auto_Start_CheckBox.Location = new System.Drawing.Point(479, 7);
+            this.Auto_Start_CheckBox.Name = "Auto_Start_CheckBox";
+            this.Auto_Start_CheckBox.Size = new System.Drawing.Size(149, 17);
+            this.Auto_Start_CheckBox.TabIndex = 25;
+            this.Auto_Start_CheckBox.Text = "Auto Start with WIndows?";
+            this.Auto_Start_CheckBox.UseVisualStyleBackColor = true;
+            this.Auto_Start_CheckBox.CheckedChanged += new System.EventHandler(this.Auto_Start_CheckBox_CheckedChanged);
+            // 
             // Delete_Button
             // 
             this.Delete_Button.Location = new System.Drawing.Point(211, 259);
@@ -259,17 +271,6 @@
             this.Workers_Panel.Name = "Workers_Panel";
             this.Workers_Panel.Size = new System.Drawing.Size(625, 205);
             this.Workers_Panel.TabIndex = 21;
-            // 
-            // Auto_Start_CheckBox
-            // 
-            this.Auto_Start_CheckBox.AutoSize = true;
-            this.Auto_Start_CheckBox.Location = new System.Drawing.Point(479, 7);
-            this.Auto_Start_CheckBox.Name = "Auto_Start_CheckBox";
-            this.Auto_Start_CheckBox.Size = new System.Drawing.Size(149, 17);
-            this.Auto_Start_CheckBox.TabIndex = 25;
-            this.Auto_Start_CheckBox.Text = "Auto Start with WIndows?";
-            this.Auto_Start_CheckBox.UseVisualStyleBackColor = true;
-            this.Auto_Start_CheckBox.CheckedChanged += new System.EventHandler(this.Auto_Start_CheckBox_CheckedChanged);
             // 
             // Form1
             // 

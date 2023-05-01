@@ -17,7 +17,7 @@ namespace TRM_Api_Viewer
 {
     public partial class EditSettings : Form
     {
-        public MinerSettings miner_settings = new MinerSettings();
+        public MinerSettings miner_settings;
         Worker Worker = new Worker();
         List<string> installed_miners = new List<string>();
         ClientManager client_manager;
@@ -25,7 +25,7 @@ namespace TRM_Api_Viewer
         {
             InitializeComponent();
             this.client_manager = client_manager;
-            this.miner_settings = settings;
+            this.miner_settings = settings == null ?  new MinerSettings() : settings;
             this.Worker = worker;
         }
         private async void EditSettings_Load(object sender, EventArgs e)
@@ -38,14 +38,14 @@ namespace TRM_Api_Viewer
                 Coin3_ComboBox.Items.Add(item.Value);
             }
 
-            await Task.Run(() =>
-            {
-                // Popoulate installed miners
+            //await Task.Run(() =>
+            //{
+                // Populate installed miners
                 installed_miners = client_manager.Get_Installed_Miners(Worker.IP);
                 if (installed_miners != null)
                     foreach (var miner in installed_miners)                    
                         Installed_Miners_ComboBox.AddItem(miner);   
-            });
+            //});
 
             // Populate settings to edit
             if (miner_settings == null) { return; }
@@ -64,7 +64,7 @@ namespace TRM_Api_Viewer
             Coin3_ComboBox.Text = miner_settings.Coin3;
             Algo1_TextBox.Text = miner_settings.Algo1;
             Algo2_TextBox.Text = miner_settings.Algo2;
-            Algo3_TextBox.Text = miner_settings.Algo1;
+            Algo3_TextBox.Text = miner_settings.Algo3;
             Pool1_TextBox.Text = miner_settings.Pool1;
             Pool2_TextBox.Text = miner_settings.Pool2;
             Pool3_TextBox.Text = miner_settings.Pool3;
@@ -75,7 +75,7 @@ namespace TRM_Api_Viewer
             SSL2_CheckBox.Checked = miner_settings.SSL2;
             SSL3_CheckBox.Checked = miner_settings.SSL3;
 
-            Arguments_TextBox.Text = miner_settings.GenerateArguments();
+            Arguments_TextBox.Text = miner_settings.Arguments_String;
         }
         bool close = true;
         private void Save_Button_Click(object sender, EventArgs e)
@@ -88,7 +88,7 @@ namespace TRM_Api_Viewer
             }
             if (String.IsNullOrWhiteSpace(Arguments_TextBox.Text))
             {
-                MessageBox.Show(".Bat File must not be empty");
+                MessageBox.Show("The .bat file textbox must not be empty");
                 close = false;
                 return;
             }
@@ -118,8 +118,17 @@ namespace TRM_Api_Viewer
             miner_settings.SSL2 = SSL2_CheckBox.Checked;
             miner_settings.SSL3 = SSL3_CheckBox.Checked;
 
-            miner_settings.Arguments_String = Arguments_TextBox.Text;
-            close = true;
+            miner_settings.Arguments_String = Arguments_TextBox.Text;            
+
+            // Update worker/server
+            bool added = client_manager.Add_Miner_Setting(Worker.IP, miner_settings);
+            if(added)
+                close = true;
+            else
+            {
+                close = false;
+                MessageBox.Show("Miner settings were not saved");
+            }
         }
         private void Download_Button_Click(object sender, EventArgs e)
         {

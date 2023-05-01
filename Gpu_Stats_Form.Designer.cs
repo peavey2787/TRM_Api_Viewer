@@ -35,10 +35,12 @@
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gpu_Stats_Form));
             this.Gpu_Panel = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.Last_Share_Time = new System.Windows.Forms.Label();
             this.Last_Share_Label = new System.Windows.Forms.Label();
+            this.MHS_av3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.Hardware_Errors_Picture = new System.Windows.Forms.PictureBox();
             this.TemperatureMem = new System.Windows.Forms.Label();
             this.MHS_av2 = new System.Windows.Forms.Label();
@@ -68,8 +70,6 @@
             this.Fan_Percent = new System.Windows.Forms.Label();
             this.Online_Picture_Box = new System.Windows.Forms.PictureBox();
             this.GPU = new System.Windows.Forms.Label();
-            this.MHS_av3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.Gpu_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Hardware_Errors_Picture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Gpu_Chart)).BeginInit();
@@ -125,6 +125,48 @@
             this.Gpu_Panel.Size = new System.Drawing.Size(298, 379);
             this.Gpu_Panel.TabIndex = 4;
             // 
+            // Last_Share_Time
+            // 
+            this.Last_Share_Time.AutoSize = true;
+            this.Last_Share_Time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Last_Share_Time.Location = new System.Drawing.Point(141, 202);
+            this.Last_Share_Time.Name = "Last_Share_Time";
+            this.Last_Share_Time.Size = new System.Drawing.Size(104, 18);
+            this.Last_Share_Time.TabIndex = 16;
+            this.Last_Share_Time.Text = "04/08 12:42:55";
+            // 
+            // Last_Share_Label
+            // 
+            this.Last_Share_Label.AutoSize = true;
+            this.Last_Share_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Last_Share_Label.Location = new System.Drawing.Point(55, 202);
+            this.Last_Share_Label.Name = "Last_Share_Label";
+            this.Last_Share_Label.Size = new System.Drawing.Size(83, 18);
+            this.Last_Share_Label.TabIndex = 15;
+            this.Last_Share_Label.Text = "Last Share:";
+            // 
+            // MHS_av3
+            // 
+            this.MHS_av3.AutoSize = true;
+            this.MHS_av3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MHS_av3.Location = new System.Drawing.Point(6, 83);
+            this.MHS_av3.Name = "MHS_av3";
+            this.MHS_av3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.MHS_av3.Size = new System.Drawing.Size(85, 18);
+            this.MHS_av3.TabIndex = 38;
+            this.MHS_av3.Text = "999999.99";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label4.Location = new System.Drawing.Point(91, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 18);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "MH/s";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -146,26 +188,6 @@
             this.label6.Size = new System.Drawing.Size(22, 18);
             this.label6.TabIndex = 20;
             this.label6.Text = "°c";
-            // 
-            // Last_Share_Time
-            // 
-            this.Last_Share_Time.AutoSize = true;
-            this.Last_Share_Time.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Last_Share_Time.Location = new System.Drawing.Point(141, 202);
-            this.Last_Share_Time.Name = "Last_Share_Time";
-            this.Last_Share_Time.Size = new System.Drawing.Size(104, 18);
-            this.Last_Share_Time.TabIndex = 16;
-            this.Last_Share_Time.Text = "04/08 12:42:55";
-            // 
-            // Last_Share_Label
-            // 
-            this.Last_Share_Label.AutoSize = true;
-            this.Last_Share_Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Last_Share_Label.Location = new System.Drawing.Point(55, 202);
-            this.Last_Share_Label.Name = "Last_Share_Label";
-            this.Last_Share_Label.Size = new System.Drawing.Size(83, 18);
-            this.Last_Share_Label.TabIndex = 15;
-            this.Last_Share_Label.Text = "Last Share:";
             // 
             // Hardware_Errors_Picture
             // 
@@ -403,7 +425,7 @@
             // 
             this.Memory_Clock.AutoSize = true;
             this.Memory_Clock.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Memory_Clock.Location = new System.Drawing.Point(144, 151);
+            this.Memory_Clock.Location = new System.Drawing.Point(130, 151);
             this.Memory_Clock.Name = "Memory_Clock";
             this.Memory_Clock.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Memory_Clock.Size = new System.Drawing.Size(32, 18);
@@ -503,32 +525,10 @@
             this.GPU.TabIndex = 1;
             this.GPU.Text = "WorkerName+GpuName+Index";
             // 
-            // MHS_av3
-            // 
-            this.MHS_av3.AutoSize = true;
-            this.MHS_av3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MHS_av3.Location = new System.Drawing.Point(6, 83);
-            this.MHS_av3.Name = "MHS_av3";
-            this.MHS_av3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.MHS_av3.Size = new System.Drawing.Size(85, 18);
-            this.MHS_av3.TabIndex = 38;
-            this.MHS_av3.Text = "999999.99";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(91, 83);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 18);
-            this.label4.TabIndex = 37;
-            this.label4.Text = "MH/s";
-            // 
-            // Gpu_Stats
+            // Gpu_Stats_Form
             // 
             this.Controls.Add(this.Gpu_Panel);
-            this.Name = "Gpu_Stats";
+            this.Name = "Gpu_Stats_Form";
             this.Size = new System.Drawing.Size(305, 386);
             this.Gpu_Panel.ResumeLayout(false);
             this.Gpu_Panel.PerformLayout();

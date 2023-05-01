@@ -28,6 +28,7 @@ using TRM_Api_Viewer.Properties;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 using Control = System.Windows.Forms.Control;
+using Keys = System.Windows.Forms.Keys;
 using Label = System.Windows.Forms.Label;
 using Panel = System.Windows.Forms.Panel;
 using TextBox = System.Windows.Forms.TextBox;
@@ -50,17 +51,36 @@ namespace TRM_Api_Viewer
             var json = AppSettings.LoadAndDecrypt("WorkerList");
             worker_list = JsonConvert.DeserializeObject<List<Worker>>(json);
             if (worker_list != null && worker_list.Count > 0)
-                foreach (var worker in worker_list)
-                    Add_Worker_Panel_to_Display(Convert_Worker_to_Panel(worker));
-            else
-                worker_list = new List<Worker>();
-
-            // Connect to all known workers
-            Task.Run(() =>
             {
                 foreach (var worker in worker_list)
-                    client_manager.Add_Client(worker.IP, companionPort);
-            });
+                    Create_Worker_Form(worker);
+
+                // Connect to all known workers
+                Task.Run(() =>
+                {
+                    foreach (var worker in worker_list)
+                    {
+                        Add_Worker_Panel_to_Display(Convert_Worker_to_Panel(worker));
+
+                        worker.Online = client_manager.Add_Client(worker.IP, companionPort);
+                        if (worker.Online)
+                        {
+                            MinerStats stats = client_manager.Get_Stats(worker.IP, worker.Get_Active_Setting());
+                            UpdateMinerStats(stats, false);
+                        }
+                    }
+
+                    // If only one worker, select it
+                    if (worker_list.Count == 1)
+                    {
+                        Panel worker_panel = (Panel)Workers_Panel.Controls[0];
+                        worker_panel.SetProperty("BorderStyle", BorderStyle.FixedSingle);
+                        Update_Worker_Settings(worker_list[0]);
+                    }
+                });                
+            }
+            else
+                worker_list = new List<Worker>();
         }
         // Start with Windows
         public static void Set_Auto_Start_Registry(bool enable)
@@ -81,7 +101,37 @@ namespace TRM_Api_Viewer
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            client_manager.Shutdown_Clients();
+        }
 
+
+        private bool Show_Worker_Form(string formName)
+        {
+            // Iterate through the open forms to find a form with the given name
+            foreach (Form form in System.Windows.Forms.Application.OpenForms)
+            {
+                if (form.Text == formName)
+                {
+                    // If a form with the given name is found, show it and return
+                    form.Show();
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void Create_Worker_Form(Worker worker)
+        {
+            Form form = new Gpus_Form(worker, client_manager);
+            form.Owner = this;
+            form.Show();
+            form.Hide();
+        }
+        private void Create_Totals_Form()
+        {
+            Form form = new Gpus_Form(worker_list, client_manager);
+            form.Owner = this;
+            form.Show();
+            form.Hide();
         }
 
 
@@ -98,20 +148,18 @@ namespace TRM_Api_Viewer
 
             if (worker.Name != "Total")
             {
-                Form form = new Gpus_Form(worker);
-                form.Show();
+                if (!Show_Worker_Form("GPU Stats - " + worker.Name + " - " + worker.IP))
+                    Create_Worker_Form(worker);
             }
             else
-            {
-                Form form = new Gpus_Form(worker_list);
-                form.Show();
-            }
+                if (!Show_Worker_Form("GPU Stats - Totals"))
+                    Create_Totals_Form();            
         }
         private void View_All_Button_Click(object sender, EventArgs e)
         {
             foreach (var worker in worker_list)
             {
-                Form form = new Gpus_Form(worker);
+                Form form = new Gpus_Form(worker, client_manager);
                 form.Show();
             }
         }
@@ -170,8 +218,7 @@ namespace TRM_Api_Viewer
                     if (result == DialogResult.OK)
                     {
                         var new_settings = settings_form.miner_settings;
-                        worker.Add_Setting(new_settings);
-                                                
+                        worker.Add_Setting(new_settings);                                                
 
                         Add_Miner_Setting_To_ListBox(new_settings);
                     }
@@ -193,22 +240,46 @@ namespace TRM_Api_Viewer
 
             var worker = Get_Selected_Worker();
             var miner_settings = worker.Get_Setting(Miner_Settings_ListBox.SelectedItems[0].ToString());
+            if(miner_settings == null)
+            {
+                MessageBox.Show("Miner settings cannot be empty");
+            }
             var settings_form = new EditSettings(ref client_manager, miner_settings, worker);
 
-            var result = settings_form.ShowDialog();
-            if (result == DialogResult.OK)
+            try
             {
-                worker.Add_Setting(settings_form.miner_settings);
+                var result = settings_form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    worker.Add_Setting(settings_form.miner_settings);
+                }
             }
-            else if (result == DialogResult.Cancel)
-            {
+            catch(Exception ex) { MessageBox.Show("Error adding settings to worker. " + ex.Message); }
 
-            }
+            string json = JsonConvert.SerializeObject(worker_list);
+            AppSettings.EncryptAndSave("WorkerList", json);
         }
         private void Miner_Settings_ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Miner_Settings_ListBox.Items.Count == 0) return;
 
+        }
+        private void Miner_Settings_ListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && Miner_Settings_ListBox.SelectedItems.Count > 0)
+            {
+                var worker = Get_Selected_Worker();
+                List<MinerSettings> settings = worker.Get_Miner_Settings();
+                if (settings != null && settings.Count > 0)
+                {
+                    var existing = settings.Find(s => s.Display_Name.Equals(Miner_Settings_ListBox.SelectedItem));
+                    if (existing != null)
+                    {
+                        client_manager.Remove_Miner_Setting(worker.IP, existing);
+                        Miner_Settings_ListBox.Items.Remove(Miner_Settings_ListBox.SelectedItem);
+                    }
+                }
+            }
         }
         private void Auto_Start_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -287,6 +358,13 @@ namespace TRM_Api_Viewer
             else
                 Workers_Panel.Controls.Add(panel);
         }
+        private void Update_Worker_Settings(Worker worker)
+        {
+            Worker_Name_TextBox.SetProperty("Text", worker.Name);
+            Worker_Ip_TextBox.SetProperty("Text", worker.IP);
+            foreach (var setting in worker.Get_Miner_Settings())
+                Miner_Settings_ListBox.AddItem(setting.Display_Name);
+        }
         private Panel Convert_Worker_to_Panel(Worker worker, double hash1 = -1, double hash2 = -1, double hash3 = -1)
         {
             var worker_summary = new WorkerSummary();
@@ -313,11 +391,7 @@ namespace TRM_Api_Viewer
                     // Select this panel
                     worker_panel.BorderStyle = BorderStyle.FixedSingle;
 
-                    Worker_Name_TextBox.Text = worker.Name;
-                    Worker_Ip_TextBox.Text = worker.IP;
-                    foreach (var setting in worker.Get_Miner_Settings())
-                        Miner_Settings_ListBox.AddItem(setting.Display_Name);
-                    
+                    Update_Worker_Settings(worker);                    
                 };
             }
 
@@ -336,11 +410,7 @@ namespace TRM_Api_Viewer
                 // Select this panel
                 worker_panel.BorderStyle = BorderStyle.FixedSingle;
 
-                Worker_Name_TextBox.Text = worker.Name;
-                Worker_Ip_TextBox.Text = worker.IP;
-                foreach(var setting in worker.Get_Miner_Settings())
-                    Miner_Settings_ListBox.AddItem(setting.Display_Name);                
-
+                Update_Worker_Settings(worker); 
             });
 
             worker_panel.Location = new Point(0, worker_yPos);
@@ -370,8 +440,9 @@ namespace TRM_Api_Viewer
         }
         private Worker Get_Selected_Worker()
         {
-            string workerName = "";
+            string workerName = "";         
 
+            // Find the selected worker
             foreach (Control ctrl in Workers_Panel.Controls)
             {
                 if (ctrl is Panel && ((Panel)ctrl).BorderStyle != BorderStyle.None)
@@ -394,6 +465,41 @@ namespace TRM_Api_Viewer
                 display_name = $"***{display_name}***";
             Miner_Settings_ListBox.AddItem(display_name);
             Miner_Settings_ListBox.SetProperty("SelectedIndex", Miner_Settings_ListBox.Items.Count - 1);
+        }
+
+
+
+        // Update stats
+        public void UpdateMinerStats(MinerStats stats, bool only_selected = true)
+        {
+            if (stats == null) return;
+
+            foreach (Control worker_panel in Workers_Panel.Controls)
+            {
+                if (worker_panel is Panel)
+                {
+                    if (only_selected && ((Panel)worker_panel).BorderStyle != BorderStyle.None)
+                        continue;
+
+                    var hashrate1 = worker_panel.Controls.Find("Hashrate1", true).FirstOrDefault();
+                    hashrate1.SetProperty("Text", stats.Hashrate1.ToString());
+
+                    var hashrate1_unit = worker_panel.Controls.Find("Hashrate1_Unit", true).FirstOrDefault();
+                    hashrate1_unit.SetProperty("Text", "MH/s");
+
+                    var hashrate2 = worker_panel.Controls.Find("Hashrate2", true).FirstOrDefault();
+                    hashrate2.SetProperty("Text", stats.Hashrate2.ToString());
+
+                    var hashrate2_unit = worker_panel.Controls.Find("Hashrate2_Unit", true).FirstOrDefault();
+                    hashrate2_unit.SetProperty("Text", "MH/s");
+
+                    var hashrate3 = worker_panel.Controls.Find("Hashrate3", true).FirstOrDefault();
+                    hashrate3.SetProperty("Text", stats.Hashrate3.ToString());
+
+                    var hashrate3_unit = worker_panel.Controls.Find("Hashrate3_Unit", true).FirstOrDefault();
+                    hashrate3_unit.SetProperty("Text", "MH/s");
+                }
+            }
         }
 
 
@@ -468,7 +574,7 @@ namespace TRM_Api_Viewer
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
-
+        
 
 
     }

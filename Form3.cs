@@ -40,6 +40,7 @@ namespace TRM_Api_Viewer
         public bool isSnapped { get; set; }
         public bool GetIsSnapped() { return isSnapped; }
 
+        ClientManager clientManager;
         ChromeDriver driver = null;
         private Gpus_Form snappedTo = null;
         private Gpus_Form dockedTo = null;
@@ -47,20 +48,23 @@ namespace TRM_Api_Viewer
         private List<Worker> Workers = null;
         private Timer countdownTimer;
         private int countdownSeconds = 30;
-        private int companionPort = 34218;
 
-        public Gpus_Form(Worker worker)
+        public Gpus_Form(Worker worker, ClientManager clientManager)
         {
             InitializeComponent();
             Worker = worker;
+            this.clientManager = clientManager;
         }
-        public Gpus_Form(List<Worker> workers)
+        public Gpus_Form(List<Worker> workers, ClientManager clientManager)
         {
             InitializeComponent();
             Workers = workers;
+            this.clientManager = clientManager;
         }
 
 
+
+        // Start/Stop
         private void Gpus_Form_Load(object sender, EventArgs e)
         {
             if (Worker != null)
@@ -150,15 +154,40 @@ namespace TRM_Api_Viewer
         }
         private void Gpus_Form_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Task.Run(() =>
-            {
-                StopCountdown();
-                ShutDown();
-            });
+            // Cancel the form closing event
+            e.Cancel = true;
+
+            // Hide the form instead of closing it
+            this.Hide();
+
+            //StopCountdown();
+            //ShutDown();            
         }
 
 
+
+        // GUI Updated
         private void Show_Stats()
+        {
+            MinerStats stats = clientManager.Get_Stats(Worker.IP, Worker.Get_Active_Setting());
+            if (stats != null)
+            {
+                Display_Gpus(stats.Gpus);
+
+                // Update Main form stats
+                Form1 parentForm = (Form1)this.Owner;
+                if(parentForm.InvokeRequired)
+                {
+                    parentForm.Invoke((MethodInvoker)delegate
+                    {
+                        parentForm.UpdateMinerStats(stats, false);
+                    });
+                }
+                else
+                    parentForm.UpdateMinerStats(stats, false);
+            }
+        }
+        private void oldShow_Stats()
         {
             if (Workers != null && Workers.Count > 0)
             {
@@ -217,7 +246,7 @@ namespace TRM_Api_Viewer
             foreach (Gpu gpu in gpus)
             {
                 // Get/create gpu panel
-                var gpu_panel = Get_Gpu_Panel(gpu.WorkerName + gpu.Name + gpu.Id);
+                var gpu_panel = Get_Gpu_Panel(gpu.Worker_Name + gpu.Name + gpu.Id);
                 gpu_panel.Location = new Point(xPos, yPos);
                 xPos += gpu_panel.Width + 10;
 
@@ -236,7 +265,7 @@ namespace TRM_Api_Viewer
                 gpu_panel.BackColor = SystemColors.Control;
 
                 Label gpu_label = (Label)gpu_panel.Controls.Find("GPU", true).First();
-                gpu_label.Text = gpu.WorkerName + " - " + gpu.Name + " - " + gpu.Id;
+                gpu_label.Text = gpu.Worker_Name + " - " + gpu.Name + " - " + gpu.Id;
 
                 PictureBox status_label = (PictureBox)gpu_panel.Controls.Find("Online_Picture_Box", true).First();
                 if (gpu.Online)
@@ -248,33 +277,33 @@ namespace TRM_Api_Viewer
                 temperature_label.Text = gpu.Temperature.ToString();
 
                 Label fan_percent_label = (Label)gpu_panel.Controls.Find("Fan_Percent", true).First();
-                fan_percent_label.Text = gpu.FanPercent.ToString();
+                fan_percent_label.Text = gpu.Fan_Percent.ToString();
 
                 Label gpu_clock_label = (Label)gpu_panel.Controls.Find("GPU_Clock", true).First();
-                gpu_clock_label.Text = gpu.CoreClock.ToString();
+                gpu_clock_label.Text = gpu.Core_Clock.ToString();
 
                 Label memory_clock_label = (Label)gpu_panel.Controls.Find("Memory_Clock", true).First();
-                memory_clock_label.Text = gpu.MemClock.ToString();
+                memory_clock_label.Text = gpu.Mem_Clock.ToString();
 
                 Label gpu_voltage_label = (Label)gpu_panel.Controls.Find("GPU_Volts", true).First();
-                gpu_voltage_label.Text = gpu.CoreMv.ToString();
+                gpu_voltage_label.SetProperty("Text", gpu.Core_Mv.ToString());
 
                 Label mhs_avg_label = (Label)gpu_panel.Controls.Find("MHS_av", true).First();
-                mhs_avg_label.Text = gpu.Speed1.ToString("0.00");
+                mhs_avg_label.SetProperty("Text", gpu.Speed1.ToString("0.00"));
 
                 Label accepted_label = (Label)gpu_panel.Controls.Find("Accepted", true).First();
-                accepted_label.Text = gpu.Accepted1.ToString();
+                accepted_label.SetProperty("Text", gpu.Accepted1.ToString());
 
                 Label rejected_label = (Label)gpu_panel.Controls.Find("Rejected", true).First();
                 rejected_label.Text = gpu.Rejected1.ToString();
 
                 Label hardware_errors_label = (Label)gpu_panel.Controls.Find("Hardware_Errors", true).First();
                 PictureBox hardware_errors_picture = (PictureBox)gpu_panel.Controls.Find("Hardware_Errors_Picture", true).First();
-                if (gpu.HardwareErrors > 0)
+                if (gpu.Hardware_Errors > 0)
                 {
                     hardware_errors_label.Visible = true;
                     hardware_errors_picture.Visible = true;
-                    hardware_errors_label.Text = gpu.HardwareErrors.ToString();
+                    hardware_errors_label.Text = gpu.Hardware_Errors.ToString();
                 }
                 else
                 {
@@ -287,16 +316,16 @@ namespace TRM_Api_Viewer
                 {
                     intensity_label.Text = gpu.Intensity.ToString();
                 }
-                else if (!String.IsNullOrWhiteSpace(gpu.Efficiency))
+                else if (gpu.Efficiency > 0)
                 {
-                    intensity_label.Text = gpu.Efficiency;
+                    intensity_label.Text = gpu.Efficiency.ToString("0.00") + " " + gpu.Efficiency_Unit;
                     Label efficiency_label = (Label)gpu_panel.Controls.Find("Intensity_Label", true).First();
                     efficiency_label.Text = "Efficiency";
                 }
 
                 Label last_share_time_label = (Label)gpu_panel.Controls.Find("Last_Share_Time", true).First();
                 Label last_share_label = (Label)gpu_panel.Controls.Find("Last_Share_Label", true).First();
-                if (gpu.LastShareTime == 0)
+                if (gpu.Last_Share_Time == 0)
                 {
                     last_share_label.Visible = false;
                     last_share_time_label.Text = "";
@@ -304,22 +333,22 @@ namespace TRM_Api_Viewer
                 else
                 {
                     last_share_label.Visible = true;
-                    last_share_time_label.Text = Gpu.Get_Human_Readable_Date_Time(gpu.LastShareTime);
+                    last_share_time_label.Text = Gpu.Get_Human_Readable_Date_Time(gpu.Last_Share_Time);
                 }
 
                 Label temperature_mem_label = (Label)gpu_panel.Controls.Find("TemperatureMem", true).First();
-                temperature_mem_label.Text = gpu.MemTemp.ToString();
+                temperature_mem_label.Text = gpu.Mem_Temp.ToString();
 
                 Label gpu_power_label = (Label)gpu_panel.Controls.Find("GPU_Power", true).First();
                 gpu_power_label.Text = gpu.Power.ToString();
 
                 // Algo 2
                 Label mhs_avg_label2 = (Label)gpu_panel.Controls.Find("MHS_av2", true).First();
-                mhs_avg_label2.Text = gpu.Speed2.ToString("0.00");
+                mhs_avg_label2.SetProperty("Text", gpu.Speed2.ToString("0.00"));
 
                 // Algo 3
                 Label mhs_avg_label3 = (Label)gpu_panel.Controls.Find("MHS_av3", true).First();
-                mhs_avg_label3.Text = gpu.Speed3.ToString();
+                mhs_avg_label3.SetProperty("Text", gpu.Speed3.ToString());
 
                 // Update line chart
                 Chart Gpu_Chart_label = (Chart)gpu_panel.Controls.Find("Gpu_Chart", true).First();
@@ -344,7 +373,7 @@ namespace TRM_Api_Viewer
                 //chartArea.AxisX.ScrollBar.Enabled = true; // always show
                 Gpu_Chart_label.ChartAreas[0].AxisX.ScrollBar.Enabled = false; // always hide
 
-                var found = Stats_Panel.Controls.Find("Gpu_Panel" + gpu.WorkerName + gpu.Name + gpu.Id, true);
+                var found = Stats_Panel.Controls.Find("Gpu_Panel" + gpu.Worker_Name + gpu.Name + gpu.Id, true);
                 if (found.Count() == 0)
                     Stats_Panel.Controls.Add(gpu_panel);
             }
@@ -445,7 +474,7 @@ namespace TRM_Api_Viewer
             {
                 var gpu = new Gpu();
                 gpu.Id = int.Parse(device.Property("GPU").Value.ToString());
-                gpu.WorkerName = worker.Name;
+                gpu.Worker_Name = worker.Name;
 
                 string status = device.Property("Status").Value.ToString();
                 if (status == "Alive")
@@ -454,17 +483,17 @@ namespace TRM_Api_Viewer
                     gpu.Online = false;
 
                 gpu.Temperature = int.Parse(device.Property("Temperature").Value.ToString());
-                gpu.FanPercent = int.Parse(device.Property("Fan Percent").Value.ToString());
-                gpu.CoreClock = int.Parse(device.Property("GPU Clock").Value.ToString());
-                gpu.MemClock = int.Parse(device.Property("Memory Clock").Value.ToString());
-                gpu.CoreMv = double.Parse(device.Property("GPU Voltage").Value.ToString());
+                gpu.Fan_Percent = int.Parse(device.Property("Fan Percent").Value.ToString());
+                gpu.Core_Clock = int.Parse(device.Property("GPU Clock").Value.ToString());
+                gpu.Mem_Clock = int.Parse(device.Property("Memory Clock").Value.ToString());
+                gpu.Core_Mv = double.Parse(device.Property("GPU Voltage").Value.ToString());
                 gpu.Speed1 = double.Parse(device.Property("MHS 30s").Value.ToString()); // "MHS av" = average "MHS 30s" = last 30secs
                 gpu.Accepted1 = int.Parse(device.Property("Accepted").Value.ToString());
                 gpu.Rejected1 = int.Parse(device.Property("Rejected").Value.ToString());
-                gpu.HardwareErrors = int.Parse(device.Property("Hardware Errors").Value.ToString());
+                gpu.Hardware_Errors = int.Parse(device.Property("Hardware Errors").Value.ToString());
                 gpu.Intensity = int.Parse(device.Property("Intensity").Value.ToString());
-                gpu.LastShareTime = double.Parse(device.Property("Last Share Time").Value.ToString());
-                gpu.MemTemp = int.Parse(device.Property("TemperatureMem").Value.ToString());
+                gpu.Last_Share_Time = double.Parse(device.Property("Last Share Time").Value.ToString());
+                gpu.Mem_Temp = int.Parse(device.Property("TemperatureMem").Value.ToString());
                 gpu.Power = double.Parse(device.Property("GPU Power").Value.ToString());
 
                 gpus.Add(gpu);
@@ -560,7 +589,7 @@ namespace TRM_Api_Viewer
         }
         public List<Gpu> Get_Gpus_from_Gminer(Worker worker)
         {
-            string url = "";//"http://" + worker.IP + ":" + worker.Get_Active_Setting().API_Port.ToString();
+            string url = "http://" + worker.IP + ":" + worker.Get_Active_Setting().Port1.ToString();
             var gpus = new List<Gpu>();
 
             try
@@ -576,7 +605,7 @@ namespace TRM_Api_Viewer
                 foreach (var row in gpuRows)
                 {
                     var gpu = new Gpu();
-                    gpu.WorkerName = worker.Name;
+                    gpu.Worker_Name = worker.Name;
                     var cells = row.FindElements(By.TagName("td"));
                     if (cells != null && cells.Count > 1)
                     {
@@ -621,15 +650,16 @@ namespace TRM_Api_Viewer
 
                         gpu.Id = id;
                         gpu.Name = cells[1].Text;
-                        gpu.FanPercent = fan;
+                        gpu.Fan_Percent = fan;
                         gpu.Temperature = temp;
-                        gpu.MemTemp = memTemp;
+                        gpu.Mem_Temp = memTemp;
                         gpu.Speed1 = firstNumber;
                         gpu.Speed2 = secondNumber; ;
-                        gpu.CoreClock = core;
-                        gpu.MemClock = memory;
+                        gpu.Core_Clock = core;
+                        gpu.Mem_Clock = memory;
                         gpu.Power = power;
-                        gpu.Efficiency = cells[9].Text;
+                        if(double.TryParse(cells[9].Text, out double eff))
+                            gpu.Efficiency = eff;
 
                         // add gpu data to list
                         gpus.Add(gpu);
@@ -646,53 +676,6 @@ namespace TRM_Api_Viewer
 
 
 
-        // Companion app Commands
-        public static string Send_Command(string ipAddress, int port, string command)
-        {
-            try
-            {
-                using (TcpClient client = new TcpClient(ipAddress, port))
-                {
-                    using (NetworkStream stream = client.GetStream())
-                    {
-                        using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-                        {
-                            using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
-                            {
-                                writer.WriteLine(command);
-                                writer.Flush();
-
-                                string response = reader.ReadLine();
-
-                                return response;
-                            }
-                        }
-                    }
-                }
-            }
-            catch { }
-            return "Unable to connect to companion app";
-        }
-        private void Restart_Miner_Button_Click(object sender, EventArgs e)
-        {
-            var json = JsonConvert.SerializeObject(Worker.Get_Active_Setting());
-            var resp = Send_Command(Worker.IP, companionPort, "restart/" + json);
-        }
-        private void Start_Miner_Button_Click(object sender, EventArgs e)
-        {
-            MinerSettings settings = Temp_Create_Settings();
-
-            var json = JsonConvert.SerializeObject(settings);
-            var resp = Send_Command(Worker.IP, companionPort, "start/" + json);
-            if (resp != null)
-            {
-                resp = resp.Replace("proc_id:", "").TrimStart().TrimEnd();
-                if (int.TryParse(resp, out int proc_id))
-                    settings.ProcessId = proc_id;
-            }
-
-            Worker.Set_Active_Setting(settings);
-        }
         private MinerSettings Temp_Create_Settings()
         {
             MinerSettings settings = new MinerSettings();
@@ -724,20 +707,29 @@ namespace TRM_Api_Viewer
             settings.Arguments_Dictionary.Add("api", "8888");
             return settings;
         }
+        // Companion app Commands
+        private void Restart_Miner_Button_Click(object sender, EventArgs e)
+        {
+            clientManager.Restart_Miner(Worker.IP, Worker.Get_Active_Setting());
+        }
+        private void Start_Miner_Button_Click(object sender, EventArgs e)
+        {
+            MinerSettings settings = Worker.Get_Active_Setting();
+            settings.ProcessId = clientManager.Start_Miner(Worker.IP, Worker.Get_Active_Setting());
+        }
         private void Stop_Miner_Button_Click(object sender, EventArgs e)
         {
-            var json = JsonConvert.SerializeObject(Worker.Get_Active_Setting());
-            var resp = Send_Command(Worker.IP, companionPort, "stop/" + json);
+            clientManager.Stop_Miner(Worker.IP, Worker.Get_Active_Setting());
         }
         private void Update_Miner_Button_Click(object sender, EventArgs e)
         {
-            var json = JsonConvert.SerializeObject(Worker.Get_Active_Setting());
-            var resp = Send_Command(Worker.IP, companionPort, "update/" + json);
+
         }
         private void View_Miner_Button_Click(object sender, EventArgs e)
         {
-            var settings = Temp_Create_Settings();
-            Worker.Add_Setting(settings);
+           //var settings = Temp_Create_Settings();
+           var settings = Worker.Get_Active_Setting();
+            //Worker.Add_Setting(settings);
 
             var viewMinerTitle = $"{Worker.Name}-{settings.Display_Name}";
             
@@ -746,10 +738,12 @@ namespace TRM_Api_Viewer
 
             if (existingForm == null)
             {
-                var view_miner = new View_Miner(Worker);
+                var view_miner = new View_Miner(Worker, ref clientManager);
                 view_miner.Show();
             }
         }
+
+
 
         // Snap to other form  snapped = form on right  docked = form on left
         private void Dock_Button_Click(object sender, EventArgs e)

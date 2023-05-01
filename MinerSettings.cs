@@ -62,7 +62,8 @@ namespace TRM_Api_Viewer
             { "NexaPow", "NEXA" },
             { "Ubqhash", "UBQ" },
             { "ZelHash", "FLUX" },
-            { "sha512_256d_radiant", "RXD" }
+            { "sha512_256d_radiant", "RXD" },
+            { "Zilliqa", "ZIL" }
         };
         public string GenerateArguments()
         {
